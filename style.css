@@ -1,0 +1,65 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.calender {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .calender-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background-color: #e5e7eb;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* Week names */
+    .calender-header div {
+      padding: 12px;
+      border-right: 1px solid #d1d5db;
+    }
+
+
+    /* calender body */
+    .calender-body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+
+    .day {
+      border: 1px solid #e5e7eb;
+      padding: 12px;
+      height: 200px;
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .day.active:hover {
+      background-color: #f0f9ff;
+    }
+
+    .day.inactive {
+      background-color: #f3f4f6;
+      color: #9ca3af;
+      cursor: not-allowed;
+    }
+    .calender-body span{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }

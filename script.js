@@ -45,6 +45,24 @@ days.forEach((day) => {
   });
 });
 
+// function add color based on type
+function addReservationColor(reservation,type){
+    if(type==="vip")
+        reservation.style.backgroundColor = "red";
+    else if(type === "group")
+        reservation.style.backgroundColor = "green";
+    else
+        reservation.style.backgroundColor = "blue";
+}
+
+// function create reservation 
+function createReservationElement(name,start,end,type){
+    const reservation = document.createElement("div");
+    reservation.classList.add("reservation");
+
+}
+
+
 // event when the user clicks on save
 btnSave.addEventListener("click", (e) => {
   e.preventDefault();
@@ -53,12 +71,11 @@ btnSave.addEventListener("click", (e) => {
   const end = endHourInput.value;
   const type = selectedType.value;
 
- if(!name || !start || !end || !type){
+  if (!name || !start || !end || !type) {
     alert("please fill all fields -)");
     return;
- }
+  }
 
- 
+  // create reservation element;
+  createReservationElement(name, start, end, type);
 });
-
-

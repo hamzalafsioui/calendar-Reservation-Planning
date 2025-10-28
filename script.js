@@ -9,12 +9,6 @@ let btnAnnuler = document.getElementById('btn-annuler');
 
 // add event to all active days
 const days = document.querySelectorAll(".day.active");
-days.forEach((day) => {
-  day.addEventListener("click", function () {
-    // console.log(day);
-    modal.style.display = "block"; // When the user clicks open the modal
-  });
-});
 
 
 // When the user clicks on <span> (x) => close the modal
@@ -30,9 +24,24 @@ window.onclick = function (event) {
     // console.log(event.target);
   }
 };
-
+// when the user clicks to annuler
 btnAnnuler.addEventListener(('click'),() =>{
     modal.style.display = 'none';
 })
 
+// form inputs
+const name = document.getElementById('name');
+const startHour = document.getElementById('start-hour');
+const endHour = document.getElementById('end-hour');
+const type = document.getElementById('type');
 
+// variable to stock selected day;
+let selectedDay = null;
+
+days.forEach((day) => {
+  day.addEventListener("click", function () {
+    // console.log(day);
+    selectedDay = day;
+    modal.style.display = "block"; // When the user clicks open the modal
+  });
+});

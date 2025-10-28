@@ -94,7 +94,7 @@ form {
 
 .buttons a{
   background-color: rgb(36, 166, 246);
-  padding: 10px 20px;
+  padding: 0.7rem 1.2rem;
   margin-right: 10px;
   text-decoration: none;
   color: white;
@@ -111,7 +111,7 @@ form {
 .reservation-content {
   background-color: #fefefe;
   margin: 15% auto; 
-  padding: 20px;
+  padding: 1.1rem;
   border: 1px solid #888;
   width: 80%; 
 }
@@ -127,6 +127,47 @@ form {
   padding: 4px;
   border-radius: 6px;
   color: white;
-  font-size: 12px;
+  font-size: 0.8rem;
   text-align: center;
+}
+
+/* responsive Design */
+@media (max-width: 1024px) {
+   body{
+    font-size: 14px;
+  }
+  .calender-header,
+  .calender-body {
+    grid-template-columns: repeat(5, 1fr);
+    
+  }
+   .calender-header div.inactive,
+  .calender-body .inactive {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+   body{
+    font-size: 10px;
+  }
+  .calender-header,
+  .calender-body {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .day {
+    height: 150px;
+    font-size: 0.9rem;
+  }
+
+   .calender-header div.inactive,
+  .calender-body .inactive {
+    display: none;
+  }
+
+  .calender-header,
+  .calender-body {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }

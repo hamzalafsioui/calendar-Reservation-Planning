@@ -30,8 +30,8 @@ btnAnnuler.addEventListener("click", () => {
 
 // form inputs
 const nameInput = document.getElementById("name");
-const startHourInput = document.getElementById("start-hour");
-const endHourInput = document.getElementById("end-hour");
+const startInput = document.getElementById("start-hour");
+const endInput = document.getElementById("end-hour");
 const selectedType = document.getElementById("type");
 
 // variable to stock selected day;
@@ -54,6 +54,14 @@ function addReservationColor(reservation,type){
     else
         reservation.style.backgroundColor = "blue";
 }
+// close Modal
+function closeModal(){
+    modal.style.display = "none";
+    nameInput.value = "";
+    startInput.value = "";
+    endInput.value = "";
+
+}
 
 // function create reservation 
 function createReservationElement(name,start,end,type){
@@ -64,7 +72,8 @@ function createReservationElement(name,start,end,type){
     reservation.textContent = `${name} (${start} - ${end})`;
     // append to day was clicked
     selectedDay.appendChild(reservation);
-    
+    // close modal
+    closeModal();
 }
 
 
@@ -72,8 +81,8 @@ function createReservationElement(name,start,end,type){
 btnSave.addEventListener("click", (e) => {
   e.preventDefault();
   const name = nameInput.value.trim();
-  const start = startHourInput.value;
-  const end = endHourInput.value;
+  const start = startInput.value;
+  const end = endInput.value;
   const type = selectedType.value;
 
   if (!name || !start || !end || !type) {

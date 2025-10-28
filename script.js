@@ -1,4 +1,4 @@
-import { generateCalendarDays } from './generateCalendar.js';
+import { generateCalendarDays } from "./generateCalendar.js";
 generateCalendarDays();
 // Get the modal
 let modal = document.getElementById("myModal");
@@ -48,36 +48,31 @@ days.forEach((day) => {
 });
 
 // function add color based on type
-function addReservationColor(reservation,type){
-    if(type==="vip")
-        reservation.style.backgroundColor = "red";
-    else if(type === "group")
-        reservation.style.backgroundColor = "green";
-    else
-        reservation.style.backgroundColor = "blue";
+function addReservationColor(reservation, type) {
+  if (type === "vip") reservation.style.backgroundColor = "red";
+  else if (type === "group") reservation.style.backgroundColor = "green";
+  else reservation.style.backgroundColor = "blue";
 }
 // close Modal
-function closeModal(){
-    modal.style.display = "none";
-    nameInput.value = "";
-    startInput.value = "";
-    endInput.value = "";
-
+function closeModal() {
+  modal.style.display = "none";
+  nameInput.value = "";
+  startInput.value = "";
+  endInput.value = "";
 }
 
-// function create reservation 
-function createReservationElement(name,start,end,type){
-    const reservation = document.createElement("div");
-    reservation.classList.add("reservation");
-    addReservationColor(reservation,type);
-    // add text 
-    reservation.textContent = `${name} (${start} - ${end})`;
-    // append to day was clicked
-    selectedDay.appendChild(reservation);
-    // close modal
-    closeModal();
+// function create reservation
+function createReservationElement(name, start, end, type) {
+  const reservation = document.createElement("div");
+  reservation.classList.add("reservation");
+  addReservationColor(reservation, type);
+  // add text
+  reservation.textContent = `${name} (${start} - ${end})`;
+  // append to day was clicked
+  selectedDay.appendChild(reservation);
+  // close modal
+  closeModal();
 }
-
 
 // event when the user clicks on save
 btnSave.addEventListener("click", (e) => {
@@ -92,6 +87,17 @@ btnSave.addEventListener("click", (e) => {
     return;
   }
 
+  // use local storage
+  const dayNumber = selectedDay.querySelector("span").textContent; // get day number 1 ... 30
+  // reservation data
+  const reservationData = {
+    day: dayNumber,
+    name,
+    start,
+    end,
+    type,
+  };
+  saveReservation(reservationData); // save reservation
   // create reservation element;
   createReservationElement(name, start, end, type);
 });

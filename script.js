@@ -1,3 +1,5 @@
+import { generateCalendarDays } from './generateCalendar.js';
+generateCalendarDays();
 // Get the modal
 let modal = document.getElementById("myModal");
 // Get the element that closes the modal

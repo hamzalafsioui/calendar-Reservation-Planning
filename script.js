@@ -74,6 +74,15 @@ function createReservationElement(name, start, end, type) {
   closeModal();
 }
 
+// save reservation data to local storage
+function saveReservation(reservation){
+    // get existing reservation
+    const reservations = JSON.parse(localStorage.getItem("reservations")) || []; //if not exist fill with empty data
+    // add new reservation 
+    reservations.push(reservation); 
+    // save 
+    localStorage.setItem("reservations",JSON.stringify(reservations));
+}
 // event when the user clicks on save
 btnSave.addEventListener("click", (e) => {
   e.preventDefault();

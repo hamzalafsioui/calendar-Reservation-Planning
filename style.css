@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: cursive ;
 }
 header {
   display: flex;
@@ -91,7 +92,20 @@ form {
   margin-bottom: 10px;
 }
 
-.buttons {
+.buttons a{
+  background-color: rgb(36, 166, 246);
+  padding: 10px 20px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: white;
+  border-radius: 20px;
+  transition: transform 1.3s ease-in;
+  font-size: 1.2rem;
+
+}
+.buttons a:hover{
+  color: black;
+  
 }
 
 .reservation-content {

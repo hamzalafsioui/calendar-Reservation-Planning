@@ -59,7 +59,12 @@ function addReservationColor(reservation,type){
 function createReservationElement(name,start,end,type){
     const reservation = document.createElement("div");
     reservation.classList.add("reservation");
-
+    addReservationColor(reservation,type);
+    // add text 
+    reservation.textContent = `${name} (${start} - ${end})`;
+    // append to day was clicked
+    selectedDay.appendChild(reservation);
+    
 }
 
 

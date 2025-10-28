@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <script src="./script.js" defer></script>
-    <script defer>console.log("jshs")</script>
+    <script defer>
+      console.log("jshs");
+    </script>
 
     <title>calender</title>
   </head>
@@ -73,37 +75,39 @@
     </main>
 
     <!-- create form to reserve -->
-    <div class="reservation-container">
-      <h2>New Reservation</h2>
-      <form action="#">
-        <div class="form-field">
-          <label for="name">Nom</label>
-          <input type="text" id="name" />
-        </div>
-        <div class="form-field">
-          <div class="hour-container">
-            <label for="start-hour">Start Hour</label>
-            <input type="time" id="end-hour" />
-            <label for="start-hour">Start Hour</label>
-            <input type="time" id="end-hour" />
+    <div class="reservation-container" id="myModal">
+      <div class="reservation-content">
+        <span class="close">&times;</span>
+        <h2>New Reservation</h2>
+        <form action="#">
+          <div class="form-field">
+            <label for="name">Nom</label>
+            <input type="text" id="name" />
           </div>
-        </div>
-
-        <div class="form-field">
-          <label for="type">Type</label>
-          <select name="type" id="type">
-            <option value="Standard" selected>Standard</option>
-            <option value="vip" selected>VIP</option>
-            <option value="group" selected>Group</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <div class="buttons">
-            <a href="" class="btn-cancel"><button>Cancel</button></a>
-            <a href="" class="btn-save"><button>Save</button></a>
+          <div class="form-field">
+            <div class="hour-container">
+              <label for="start-hour">Start Hour</label>
+              <input type="time" id="end-hour" />
+              <label for="start-hour">Start Hour</label>
+              <input type="time" id="end-hour" />
+            </div>
           </div>
-        </div>
-      </form>
+          <div class="form-field">
+            <label for="type">Type</label>
+            <select name="type" id="type">
+              <option value="Standard" selected>Standard</option>
+              <option value="vip" selected>VIP</option>
+              <option value="group" selected>Group</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <div class="buttons">
+              <a href="" class="btn-cancel"><button>Cancel</button></a>
+              <a href="" class="btn-save"><button>Save</button></a>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </body>
 </html>

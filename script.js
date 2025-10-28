@@ -30,10 +30,10 @@ btnAnnuler.addEventListener(('click'),() =>{
 })
 
 // form inputs
-const name = document.getElementById('name');
-const startHour = document.getElementById('start-hour');
-const endHour = document.getElementById('end-hour');
-const type = document.getElementById('type');
+const nameInput = document.getElementById('name');
+const startHourInput = document.getElementById('start-hour');
+const endHourInput = document.getElementById('end-hour');
+const selectedType = document.getElementById('type');
 
 // variable to stock selected day;
 let selectedDay = null;

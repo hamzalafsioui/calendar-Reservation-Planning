@@ -1,7 +1,12 @@
 // Get the modal
-var modal = document.getElementById("myModal");
+let modal = document.getElementById("myModal");
 // Get the element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+let span = document.getElementsByClassName("close")[0];
+// get btn save
+let btnSave = document.getElementById('btn-save');
+// get btn annuler
+let btnAnnuler = document.getElementById('btn-annuler');
+
 // add event to all active days
 const days = document.querySelectorAll(".day.active");
 days.forEach((day) => {
@@ -25,3 +30,9 @@ window.onclick = function (event) {
     // console.log(event.target);
   }
 };
+
+btnAnnuler.addEventListener(('click'),() =>{
+    modal.style.display = 'none';
+})
+
+

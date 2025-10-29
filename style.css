@@ -150,6 +150,10 @@ form {
   font-size: 0.8rem;
   text-align: center;
 }
+.reservation:hover{
+  cursor: pointer;
+  border: 2px solid yellow;
+}
 
 /* responsive Design */
 @media (max-width: 1024px) {

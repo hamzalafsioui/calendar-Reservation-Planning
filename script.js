@@ -75,13 +75,13 @@ function createReservationElement(name, start, end, type) {
 }
 
 // save reservation data to local storage
-function saveReservation(reservation){
-    // get existing reservation
-    const reservations = JSON.parse(localStorage.getItem("reservations")) || []; //if not exist fill with empty data
-    // add new reservation 
-    reservations.push(reservation); 
-    // save 
-    localStorage.setItem("reservations",JSON.stringify(reservations));
+function saveReservation(reservation) {
+  // get existing reservation
+  const reservations = JSON.parse(localStorage.getItem("reservations")) || []; //if not exist fill with empty data
+  // add new reservation
+  reservations.push(reservation);
+  // save
+  localStorage.setItem("reservations", JSON.stringify(reservations));
 }
 // event when the user clicks on save
 btnSave.addEventListener("click", (e) => {
@@ -110,3 +110,22 @@ btnSave.addEventListener("click", (e) => {
   // create reservation element;
   createReservationElement(name, start, end, type);
 });
+
+function loadReservations() {
+  const reservations = JSON.parse(localStorage.getItem("reservations")) || []; // get all reservations from local storage => not found return empty []
+  console.log(reservations);
+  reservations.forEach((reservation) => {
+    console.log(reservation);
+
+    const day = Array.from(document.querySelectorAll(".day.active")).find(
+      (d) => d.querySelector("span").textContent === reservation.day
+    );
+
+    console.log(day);
+    console.log(reservation);
+
+  
+  });
+}
+
+loadReservations();

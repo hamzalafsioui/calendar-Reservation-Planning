@@ -40,7 +40,12 @@ const selectedType = document.getElementById("type");
 let selectedDay = null;
 
 days.forEach((day) => {
-  day.addEventListener("click", function () {
+  day.addEventListener("click", function (event) {
+    if(event.target.classList.contains("reservation")){
+      const reservation = event.target;
+      console.log(reservation);
+      return;
+    }
     // console.log(day);
     selectedDay = day;
     modal.style.display = "block"; // When the user clicks open the modal

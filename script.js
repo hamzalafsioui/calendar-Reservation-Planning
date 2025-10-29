@@ -44,6 +44,12 @@ days.forEach((day) => {
     if(event.target.classList.contains("reservation")){
       const reservation = event.target;
       console.log(reservation);
+      // delete reservation if the user click it 
+      const confirmDelete = confirm("Do You Want to Delete this Reservation ! -)");
+      // if yes
+      if(confirmDelete){
+        reservation.remove(); // remove from dom
+      }
       return;
     }
     // console.log(day);

@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: cursive ;
+  font-family: cursive;
 }
 header {
   display: flex;
@@ -66,15 +66,15 @@ header {
 
 /* Reservation form */
 .reservation-container {
-  display: none; 
+  display: none;
   position: fixed;
-  z-index: 1; 
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; 
+  width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4); 
+  background-color: rgba(0, 0, 0, 0.4);
 }
 form {
   display: flex;
@@ -92,7 +92,12 @@ form {
   margin-bottom: 10px;
 }
 
-.buttons a{
+.form-field input {
+  border-radius: 8px;
+  height: 2rem;
+}
+
+.buttons a {
   background-color: rgb(36, 166, 246);
   padding: 0.7rem 1.2rem;
   margin-right: 10px;
@@ -101,19 +106,34 @@ form {
   border-radius: 20px;
   transition: transform 1.3s ease-in;
   font-size: 1.2rem;
-
 }
-.buttons a:hover{
+.buttons a:hover {
   color: black;
-  
 }
 
 .reservation-content {
+  position: relative;
   background-color: #fefefe;
-  margin: 15% auto; 
+  margin: 15% auto;
   padding: 1.1rem;
   border: 1px solid #888;
-  width: 80%; 
+  border-radius: 8px;
+  width: 50%;
+}
+
+.reservation-content h2{
+  text-align: center;
+}
+
+
+.close {
+  background-color: red;
+  padding: 0.2rem 0.5rem;
+  text-align: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
 }
 
 .close:hover,
@@ -133,22 +153,21 @@ form {
 
 /* responsive Design */
 @media (max-width: 1024px) {
-   body{
+  body {
     font-size: 14px;
   }
   .calender-header,
   .calender-body {
     grid-template-columns: repeat(5, 1fr);
-    
   }
-   .calender-header div.inactive,
+  .calender-header div.inactive,
   .calender-body .inactive {
     display: none;
   }
 }
 
 @media (max-width: 768px) {
-   body{
+  body {
     font-size: 10px;
   }
   .calender-header,
@@ -161,7 +180,7 @@ form {
     font-size: 0.9rem;
   }
 
-   .calender-header div.inactive,
+  .calender-header div.inactive,
   .calender-body .inactive {
     display: none;
   }
@@ -169,5 +188,15 @@ form {
   .calender-header,
   .calender-body {
     grid-template-columns: repeat(5, 1fr);
+  }
+  .reservation {
+    font-size: 0.6rem;
+  }
+  .reservation-content {
+    width: 80%;
+  }
+  .time-container {
+    display: flex;
+    flex-direction: column;
   }
 }

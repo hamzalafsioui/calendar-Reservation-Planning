@@ -36,19 +36,45 @@ const startInput = document.getElementById("start-hour");
 const endInput = document.getElementById("end-hour");
 const selectedType = document.getElementById("type");
 
+// function to remove reservation from localStorage
+function removeReservationFromLocalStorage(reservation, dayNumber) {
+  let reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+  // filter reservation
+  reservations = reservations.filter(
+    (r) =>
+      !(
+        r.day === dayNumber &&
+        reservation.textContent.includes(r.name) &&
+        reservation.textContent.includes(r.start) &&
+        reservation.textContent.includes(r.end)
+      )
+  );
+  // save changes
+  localStorage.setItem("reservations",JSON.stringify(reservations));
+  alert("reservation deleted successfully -)");
+}
+
 // variable to stock selected day;
 let selectedDay = null;
 
 days.forEach((day) => {
   day.addEventListener("click", function (event) {
-    if(event.target.classList.contains("reservation")){
+    if (event.target.classList.contains("reservation")) {
       const reservation = event.target;
       console.log(reservation);
-      // delete reservation if the user click it 
-      const confirmDelete = confirm("Do You Want to Delete this Reservation ! -)");
+      // delete reservation if the user click it
+      const confirmDelete = confirm(
+        "Do You Want to Delete this Reservation ! -)"
+      );
       // if yes
-      if(confirmDelete){
+      if (confirmDelete) {
         reservation.remove(); // remove from dom
+        // remove from localStorage
+        console.log(reservation);
+        removeReservationFromLocalStorage(
+          reservation,
+          day.querySelector("span").textContent
+        );
       }
       return;
     }
@@ -109,6 +135,7 @@ btnSave.addEventListener("click", (e) => {
 
   // use local storage
   const dayNumber = selectedDay.querySelector("span").textContent; // get day number 1 ... 30
+  console.log(dayNumber);
   // reservation data
   const reservationData = {
     day: dayNumber,
@@ -117,6 +144,8 @@ btnSave.addEventListener("click", (e) => {
     end,
     type,
   };
+  console.log(reservationData);
+
   saveReservation(reservationData); // save reservation
   // create reservation element;
   createReservationElement(name, start, end, type);
@@ -135,7 +164,7 @@ function loadReservations() {
     console.log(day);
     console.log(reservation);
 
-      if (day) {
+    if (day) {
       selectedDay = day;
       createReservationElement(
         reservation.name,
@@ -144,8 +173,6 @@ function loadReservations() {
         reservation.type
       );
     }
-
-  
   });
 }
 

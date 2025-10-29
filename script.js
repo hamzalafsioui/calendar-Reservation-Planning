@@ -124,6 +124,16 @@ function loadReservations() {
     console.log(day);
     console.log(reservation);
 
+      if (day) {
+      selectedDay = day;
+      createReservationElement(
+        reservation.name,
+        reservation.start,
+        reservation.end,
+        reservation.type
+      );
+    }
+
   
   });
 }

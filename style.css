@@ -60,8 +60,8 @@ header {
 }
 .calender-body span {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0px;
+  right: 5px;
 }
 
 /* Reservation form */

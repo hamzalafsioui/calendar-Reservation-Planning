@@ -35,6 +35,7 @@ const nameInput = document.getElementById("name");
 const startInput = document.getElementById("start-hour");
 const endInput = document.getElementById("end-hour");
 const selectedType = document.getElementById("type");
+const numbersInput = document.getElementById("number");
 
 // function to remove reservation from localStorage
 function removeReservationFromLocalStorage(reservation, dayNumber) {
@@ -96,15 +97,16 @@ function closeModal() {
   nameInput.value = "";
   startInput.value = "";
   endInput.value = "";
+  numbersInput.value = "";
 }
 
 // function create reservation
-function createReservationElement(name, start, end, type) {
+function createReservationElement(name, start, end, type,number) {
   const reservation = document.createElement("div");
   reservation.classList.add("reservation");
   addReservationColor(reservation, type);
   // add text
-  reservation.textContent = `${name} (${start} - ${end})`;
+  reservation.textContent = `${name} (${start} - ${end})[${number}]`;
   // append to day was clicked
   selectedDay.appendChild(reservation);
   // close modal
@@ -127,8 +129,9 @@ btnSave.addEventListener("click", (e) => {
   const start = startInput.value;
   const end = endInput.value;
   const type = selectedType.value;
+  const number = numbersInput.value;
 
-  if (!name || !start || !end || !type) {
+  if (!name || !start || !end || !type || !number) {
     alert("please fill all fields -)");
     return;
   }
@@ -143,12 +146,13 @@ btnSave.addEventListener("click", (e) => {
     start,
     end,
     type,
+    number
   };
   console.log(reservationData);
 
   saveReservation(reservationData); // save reservation
   // create reservation element;
-  createReservationElement(name, start, end, type);
+  createReservationElement(name, start, end, type,number);
 });
 
 function loadReservations() {
@@ -170,7 +174,8 @@ function loadReservations() {
         reservation.name,
         reservation.start,
         reservation.end,
-        reservation.type
+        reservation.type,
+        reservation.number
       );
     }
   });

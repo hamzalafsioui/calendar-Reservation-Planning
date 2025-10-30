@@ -99,16 +99,17 @@ days.forEach((day) => {
           nameInput.value = editingReservation.name;
           startInput.value = editingReservation.start;
           endInput.value = editingReservation.end;
-          type.value = editingReservation.type;
+          selectedType.value = editingReservation.type;
           numbersInput.value = editingReservation.number;
           modal.style.display = "block";
-          
         }
       }
+    }else{
+      // console.log(day);
+      selectedDay = day;
+      modal.style.display = "block"; // When the user clicks open the modal
+
     }
-    // console.log(day);
-    selectedDay = day;
-    modal.style.display = "block"; // When the user clicks open the modal
   });
 });
 
@@ -125,6 +126,8 @@ function closeModal() {
   startInput.value = "";
   endInput.value = "";
   numbersInput.value = "";
+  selectedDay = null;
+  editingReservation = null;
 }
 
 // function create reservation
@@ -132,7 +135,12 @@ function createReservationElement(name, start, end, type, number, id = null) {
   const reservation = document.createElement("div");
   reservation.classList.add("reservation");
   addReservationColor(reservation, type);
-  addReservationId(reservation, id || reservationId++);
+  // check if no id exist 
+  if(!id){
+    id = reservationId++;
+    // localStorage.setItem("reservationId",JSON.stringify(reservationId));
+  }
+  addReservationId(reservation,id);
   // add text
   reservation.textContent = `${name} (${start} - ${end})[${number}]`;
   // append to day was clicked
@@ -174,10 +182,44 @@ btnSave.addEventListener("click", (e) => {
 
   // use local storage
   const dayNumber = selectedDay.querySelector("span").textContent; // get day number 1 ... 30
+  let reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+  // check for editing reservation
+  if (editingReservation) {
+    const index = reservations.findIndex(
+      (r) => r.reservationId === editingReservation.reservationId
+    );
+    console.log(index);
+    if (index !== -1) {
+      reservations[index] = {
+        ...reservations[index],
+        name,
+        start,
+        end,
+        type,
+        number,
+      };
+    }
+    localStorage.setItem("reservations", JSON.stringify(reservations));
+
+    // update dom or reload page (-
+    const reservationEl = document.querySelector(
+      `.reservation[data-id="${editingReservation.reservationId}"]`
+    );
+    if (reservationEl) {
+      reservationEl.textContent = `${name} (${start} - ${end})[${number}]`;
+      addReservationColor(reservationEl, type);
+    }
+
+    editingReservation = null;
+    closeModal();
+    return;
+  }
   console.log(dayNumber);
+  const currentId = reservationId++;
+  localStorage.setItem("reservationId",JSON.stringify(reservationId));
   // reservation data
   const reservationData = {
-    reservationId,
+    reservationId:currentId,
     day: dayNumber,
     name,
     start,
@@ -189,7 +231,7 @@ btnSave.addEventListener("click", (e) => {
 
   saveReservation(reservationData); // save reservation
   // create reservation element;
-  createReservationElement(name, start, end, type, number);
+  createReservationElement(name, start, end, type, number, currentId);
 });
 
 function loadReservations() {

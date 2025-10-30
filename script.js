@@ -42,17 +42,18 @@ const selectedType = document.getElementById("type");
 const numbersInput = document.getElementById("number");
 
 // function to remove reservation from localStorage
-function removeReservationFromLocalStorage(reservation, dayNumber) {
+function removeReservationFromLocalStorage(reservation, id) {
   let reservations = JSON.parse(localStorage.getItem("reservations")) || [];
   // filter reservation
   reservations = reservations.filter(
     (r) =>
-      !(
-        r.day === dayNumber &&
-        reservation.textContent.includes(r.name) &&
-        reservation.textContent.includes(r.start) &&
-        reservation.textContent.includes(r.end)
-      )
+      // !(
+      //   r.day === dayNumber &&
+      //   reservation.textContent.includes(r.name) &&
+      //   reservation.textContent.includes(r.start) &&
+      //   reservation.textContent.includes(r.end)
+      // )
+      !(reservation.reservationId === id)
   );
   // save changes
   localStorage.setItem("reservations",JSON.stringify(reservations));
@@ -78,7 +79,7 @@ days.forEach((day) => {
         console.log(reservation);
         removeReservationFromLocalStorage(
           reservation,
-          day.querySelector("span").textContent
+          reservation.reservationId
         );
       }
       return;

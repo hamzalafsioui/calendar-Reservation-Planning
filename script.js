@@ -13,7 +13,9 @@ let btnAnnuler = document.getElementById("btn-annuler");
 const days = document.querySelectorAll(".day.active");
 
 // id to track each reservation
-let reservationId = 1;
+let reservationId = JSON.parse(localStorage.getItem("reservationId")) || 1;
+console.log(`reservationId: ${reservationId}`);
+
 // When the user clicks on <span> (x) => close the modal
 span.onclick = function () {
   modal.style.display = "none";
@@ -131,6 +133,7 @@ function saveReservation(reservation) {
   reservations.push(reservation);
   // save
   localStorage.setItem("reservations", JSON.stringify(reservations));
+  localStorage.setItem("reservationId",JSON.stringify(reservationId));
 }
 // event when the user clicks on save
 btnSave.addEventListener("click", (e) => {

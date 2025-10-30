@@ -154,6 +154,7 @@ btnSave.addEventListener("click", (e) => {
   console.log(dayNumber);
   // reservation data
   const reservationData = {
+    reservationId,
     day: dayNumber,
     name,
     start,

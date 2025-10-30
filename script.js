@@ -90,22 +90,19 @@ days.forEach((day) => {
         const reservationData = reservations.find(
           (res) => res.reservationId === Number(reservation.dataset.id)
         );
+        console.log(reservationData);
         if (reservationData) {
           editingReservation = reservationData;
           selectedDay = day;
 
           // // fill form
-          nameInput = editingReservation.name;
-          startInput = editingReservation.start;
-          endInput = editingReservation.end;
-          type = editingReservation.type;
-          numbersInput = editingReservation.number;
+          nameInput.value = editingReservation.name;
+          startInput.value = editingReservation.start;
+          endInput.value = editingReservation.end;
+          type.value = editingReservation.type;
+          numbersInput.value = editingReservation.number;
           modal.style.display = "block";
-          console.log(editingReservation.name);
-          console.log(editingReservation.start);
-          console.log(editingReservation.end);
-          console.log(editingReservation.type);
-          console.log(editingReservation.number);
+          
         }
       }
     }

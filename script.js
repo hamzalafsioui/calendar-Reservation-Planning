@@ -44,8 +44,10 @@ const numbersInput = document.getElementById("number");
 // function to remove reservation from localStorage
 function removeReservationFromLocalStorage(reservation, id) {
   let reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+  console.log(reservations);
+  console.log(id);
   // filter reservation
-  reservations = reservations.filter(
+  let updatedReservations = reservations.filter(
     (r) =>
       // !(
       //   r.day === dayNumber &&
@@ -53,36 +55,59 @@ function removeReservationFromLocalStorage(reservation, id) {
       //   reservation.textContent.includes(r.start) &&
       //   reservation.textContent.includes(r.end)
       // )
-      !(reservation.reservationId === id)
+      !(r.reservationId === Number(id))
   );
   // save changes
-  localStorage.setItem("reservations",JSON.stringify(reservations));
+  console.log(JSON.stringify(updatedReservations));
+
+  localStorage.setItem("reservations", JSON.stringify(updatedReservations));
+  console.log(updatedReservations);
   alert("reservation deleted successfully -)");
 }
 
 // variable to stock selected day;
 let selectedDay = null;
-
+let editingReservation = null;
 days.forEach((day) => {
   day.addEventListener("click", function (event) {
     if (event.target.classList.contains("reservation")) {
       const reservation = event.target;
       console.log(reservation);
       // delete reservation if the user click it
-      const confirmDelete = confirm(
-        "Do You Want to Delete this Reservation ! -)"
-      );
+      const confirmation = confirm("Click OK to DELETE, or Cancel to EDIT");
       // if yes
-      if (confirmDelete) {
+      if (confirmation) {
         reservation.remove(); // remove from dom
         // remove from localStorage
         console.log(reservation);
-        removeReservationFromLocalStorage(
-          reservation,
-          reservation.reservationId
+        console.log(reservation.dataset.id);
+        removeReservationFromLocalStorage(reservation, reservation.dataset.id);
+        return;
+      } else {
+        // update
+        const reservations =
+          JSON.parse(localStorage.getItem("reservations")) || [];
+        const reservationData = reservations.find(
+          (res) => res.reservationId === Number(reservation.dataset.id)
         );
+        if (reservationData) {
+          editingReservation = reservationData;
+          selectedDay = day;
+
+          // // fill form
+          nameInput = editingReservation.name;
+          startInput = editingReservation.start;
+          endInput = editingReservation.end;
+          type = editingReservation.type;
+          numbersInput = editingReservation.number;
+          modal.style.display = "block";
+          console.log(editingReservation.name);
+          console.log(editingReservation.start);
+          console.log(editingReservation.end);
+          console.log(editingReservation.type);
+          console.log(editingReservation.number);
+        }
       }
-      return;
     }
     // console.log(day);
     selectedDay = day;
@@ -106,11 +131,11 @@ function closeModal() {
 }
 
 // function create reservation
-function createReservationElement(name, start, end, type,number) {
+function createReservationElement(name, start, end, type, number, id = null) {
   const reservation = document.createElement("div");
   reservation.classList.add("reservation");
   addReservationColor(reservation, type);
-  addReservationId(reservation,reservationId++);
+  addReservationId(reservation, id || reservationId++);
   // add text
   reservation.textContent = `${name} (${start} - ${end})[${number}]`;
   // append to day was clicked
@@ -120,7 +145,7 @@ function createReservationElement(name, start, end, type,number) {
 }
 
 // Function to add reservation Id
-function addReservationId(reservation,id){
+function addReservationId(reservation, id) {
   reservation.dataset.id = id;
   console.log(reservation.dataset.id);
   console.log(id);
@@ -134,7 +159,7 @@ function saveReservation(reservation) {
   reservations.push(reservation);
   // save
   localStorage.setItem("reservations", JSON.stringify(reservations));
-  localStorage.setItem("reservationId",JSON.stringify(reservationId));
+  localStorage.setItem("reservationId", JSON.stringify(reservationId));
 }
 // event when the user clicks on save
 btnSave.addEventListener("click", (e) => {
@@ -161,13 +186,13 @@ btnSave.addEventListener("click", (e) => {
     start,
     end,
     type,
-    number
+    number,
   };
   console.log(reservationData);
 
   saveReservation(reservationData); // save reservation
   // create reservation element;
-  createReservationElement(name, start, end, type,number);
+  createReservationElement(name, start, end, type, number);
 });
 
 function loadReservations() {
@@ -190,7 +215,8 @@ function loadReservations() {
         reservation.start,
         reservation.end,
         reservation.type,
-        reservation.number
+        reservation.number,
+        reservation.reservationId
       );
     }
   });

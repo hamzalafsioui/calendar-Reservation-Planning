@@ -12,6 +12,8 @@ let btnAnnuler = document.getElementById("btn-annuler");
 // add event to all active days
 const days = document.querySelectorAll(".day.active");
 
+// id to track each reservation
+let reservationId = 1;
 // When the user clicks on <span> (x) => close the modal
 span.onclick = function () {
   modal.style.display = "none";
@@ -105,12 +107,20 @@ function createReservationElement(name, start, end, type,number) {
   const reservation = document.createElement("div");
   reservation.classList.add("reservation");
   addReservationColor(reservation, type);
+  addReservationId(reservation,reservationId++);
   // add text
   reservation.textContent = `${name} (${start} - ${end})[${number}]`;
   // append to day was clicked
   selectedDay.appendChild(reservation);
   // close modal
   closeModal();
+}
+
+// Function to add reservation Id
+function addReservationId(reservation,id){
+  reservation.dataset.id = id;
+  console.log(reservation.dataset.id);
+  console.log(id);
 }
 
 // save reservation data to local storage

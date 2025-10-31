@@ -18,7 +18,8 @@ console.log(`reservationId: ${reservationId}`);
 
 // When the user clicks on <span> (x) => close the modal
 span.onclick = function () {
-  modal.style.display = "none";
+  // modal.style.display = "none"; // content fields still (-
+  closeModal(); // close modal & delete content fields
 };
 
 // When the user clicks anywhere outside of the modal => close it
@@ -104,11 +105,10 @@ days.forEach((day) => {
           modal.style.display = "block";
         }
       }
-    }else{
+    } else {
       // console.log(day);
       selectedDay = day;
       modal.style.display = "block"; // When the user clicks open the modal
-
     }
   });
 });
@@ -135,12 +135,12 @@ function createReservationElement(name, start, end, type, number, id = null) {
   const reservation = document.createElement("div");
   reservation.classList.add("reservation");
   addReservationColor(reservation, type);
-  // check if no id exist 
-  if(!id){
+  // check if no id exist
+  if (!id) {
     id = reservationId++;
     // localStorage.setItem("reservationId",JSON.stringify(reservationId));
   }
-  addReservationId(reservation,id);
+  addReservationId(reservation, id);
   // add text
   reservation.textContent = `${name} (${start} - ${end})[${number}]`;
   // append to day was clicked
@@ -168,36 +168,39 @@ function saveReservation(reservation) {
 }
 
 // Function Validation
-function validateReservation(name, start,end,type,number){
-  
-  // first validation => Empty Fields 
-   if (!name || !start || !end || !type || !number) {
+function validateReservation(name, start, end, type, number) {
+  // first validation => Empty Fields
+  if (!name || !start || !end || !type || !number) {
     alert("Please fill all fields!");
     return false;
   }
   // 2em validation => Time
-  const [startHour,startMinute] = start.split(":").map(Number);
-  const [endHour,endMinute] = end.split(":").map(Number);
+  const [startHour, startMinute] = start.split(":").map(Number);
+  const [endHour, endMinute] = end.split(":").map(Number);
 
-  
-  if(isNaN(startHour) || isNaN(startMinute) || isNaN(endHour) || isNaN(endMinute)){
+  if (
+    isNaN(startHour) ||
+    isNaN(startMinute) ||
+    isNaN(endHour) ||
+    isNaN(endMinute)
+  ) {
     alert("Time is Invalid !!!");
     return;
   }
- // 3em validation => from 9 to 18;
+  // 3em validation => from 9 to 18;
   const workStart = 9 * 60; // 9:00 in Minutes
   const workEnd = 18 * 60; // 18:00 in Minutes
   const startMinutes = startHour * 60 + startMinute;
   const endMinutes = endHour * 60 + endMinute;
 
-  if(startMinutes<workStart || endMinutes > workEnd){
+  if (startMinutes < workStart || endMinutes > workEnd) {
     alert("Time Must Be Between 9:00 & 18:00 !!!");
     return;
   }
- 
+
   // 4em validation => start < end
-  if(startMinutes > endMinutes){
-    alert("Start Time Must Be before End Time !!!")
+  if (startMinutes > endMinutes) {
+    alert("Start Time Must Be before End Time !!!");
     return;
   }
 
@@ -213,8 +216,8 @@ btnSave.addEventListener("click", (e) => {
   const type = selectedType.value;
   const number = numbersInput.value;
 
- // validation
- if (!validateReservation(name, start, end, type, number)) { 
+  // validation
+  if (!validateReservation(name, start, end, type, number)) {
     return; // stop saving if invalid
   }
 
@@ -254,10 +257,10 @@ btnSave.addEventListener("click", (e) => {
   }
   console.log(dayNumber);
   const currentId = reservationId++;
-  localStorage.setItem("reservationId",JSON.stringify(reservationId));
+  localStorage.setItem("reservationId", JSON.stringify(reservationId));
   // reservation data
   const reservationData = {
-    reservationId:currentId,
+    reservationId: currentId,
     day: dayNumber,
     name,
     start,
@@ -270,6 +273,7 @@ btnSave.addEventListener("click", (e) => {
   saveReservation(reservationData); // save reservation
   // create reservation element;
   createReservationElement(name, start, end, type, number, currentId);
+  closeModal();
 });
 
 function loadReservations() {

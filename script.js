@@ -195,7 +195,11 @@ function validateReservation(name, start,end,type,number){
     return;
   }
  
- 
+  // 4em validation => start < end
+  if(startMinutes > endMinutes){
+    alert("Start Time Must Be before End Time !!!")
+    return;
+  }
 
   return true;
 }

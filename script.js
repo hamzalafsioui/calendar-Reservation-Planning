@@ -166,6 +166,20 @@ function saveReservation(reservation) {
   localStorage.setItem("reservations", JSON.stringify(reservations));
   localStorage.setItem("reservationId", JSON.stringify(reservationId));
 }
+
+// Function Validation
+function validateReservation(name, start,end,type,number){
+  
+  // first validation => Empty Fields 
+   if (!name || !start || !end || !type || !number) {
+    alert("Please fill all fields!");
+    return false;
+  }
+  
+
+  return true;
+}
+
 // event when the user clicks on save
 btnSave.addEventListener("click", (e) => {
   e.preventDefault();
@@ -175,9 +189,9 @@ btnSave.addEventListener("click", (e) => {
   const type = selectedType.value;
   const number = numbersInput.value;
 
-  if (!name || !start || !end || !type || !number) {
-    alert("please fill all fields -)");
-    return;
+ // validation
+ if (!validateReservation(name, start, end, type, number)) { 
+    return; // stop saving if invalid
   }
 
   // use local storage

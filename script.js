@@ -184,7 +184,17 @@ function validateReservation(name, start,end,type,number){
     alert("Time is Invalid !!!");
     return;
   }
+ // 3em validation => from 9 to 18;
+  const workStart = 9 * 60; // 9:00 in Minutes
+  const workEnd = 18 * 60; // 18:00 in Minutes
+  const startMinutes = startHour * 60 + startMinute;
+  const endMinutes = endHour * 60 + endMinute;
 
+  if(startMinutes<workStart || endMinutes > workEnd){
+    alert("Time Must Be Between 9:00 & 18:00 !!!");
+    return;
+  }
+ 
  
 
   return true;

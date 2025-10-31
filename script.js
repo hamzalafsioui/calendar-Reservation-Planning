@@ -175,7 +175,17 @@ function validateReservation(name, start,end,type,number){
     alert("Please fill all fields!");
     return false;
   }
+  // 2em validation => Time
+  const [startHour,startMinute] = start.split(":").map(Number);
+  const [endHour,endMinute] = end.split(":").map(Number);
+
   
+  if(isNaN(startHour) || isNaN(startMinute) || isNaN(endHour) || isNaN(endMinute)){
+    alert("Time is Invalid !!!");
+    return;
+  }
+
+ 
 
   return true;
 }
